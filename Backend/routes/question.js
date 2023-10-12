@@ -88,6 +88,7 @@ router.get("/getQuesNo",verifyAdmin,async (req, res) => {
 });
 
 router.post("/create", verifyAdmin, async (req, res) => {
+  console.log("\n\n\n...........................................entered to create question");
   const {
     name,
     description,

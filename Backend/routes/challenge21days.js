@@ -23,6 +23,7 @@ router.get("/getQuestion", async (req, res) => {
     //{[name,ques_id,day,isToday]}
     if (isDataMounted[day] === false) {
       const resultMounted = await populateDataToOriginalServer();
+      console.log("result from populated function ",resultMounted);
       if (resultMounted.status !== 200) {
         throw new Error("Error in mounting data");
       }

@@ -8,33 +8,33 @@ async function populateDataToOriginalServer() {
     //make an axios request to signIn
     console.log("populating data to original server\n");
     // console.log(`${process.env.COMPILER_API}/auth/login\n`,process.env.LOGIN_ID,process.env.PASSWORD);
-    const apiUrl = `${process.env.COMPILER_API}/auth/login`;
-    const postData = {
-      loginId: process.env.LOGIN_ID,
-      password: process.env.PASSWORD,
-    };
-    console.log(apiUrl, postData);
-    const resp = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json", // Set the Content-Type to JSON
-      },
-      body: JSON.stringify(postData), // Convert the data to JSON format
-    });
+    // const apiUrl = `${process.env.COMPILER_API}/auth/login`;
+    // const postData = {
+    //   loginId: process.env.LOGIN_ID,
+    //   password: process.env.PASSWORD,
+    // };
+    // console.log(apiUrl, postData);
+    // const resp = await fetch(apiUrl, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json", // Set the Content-Type to JSON
+    //   },
+    //   body: JSON.stringify(postData), // Convert the data to JSON format
+    // });
 
-    if (!resp.ok) {
-      throw new Error("Network response was not ok");
-    }
+    // if (!resp.ok) {
+    //   throw new Error("Network response was not ok");
+    // }
 
-    // const response = await axios.post(
-    //   `${process.env.COMPILER_API}/auth/login`,
-    //   {
-    //     loginId: process.env.LOGIN_ID,
-    //     password: process.env.PASSWORD,
-    //   }
-    // );
-    // console.log(response)
-    const response = await resp.json();
+    const response = await axios.post(
+      `${process.env.COMPILER_API}/auth/login`,
+      {
+        loginId: process.env.LOGIN_ID,
+        password: process.env.PASSWORD,
+      }
+    );
+    console.log(response.status,"\n\n");
+    // const response = await resp.json();
     // if (response.status !== 200) {
     
     //   console.log("error in logging in");
@@ -64,24 +64,25 @@ async function populateDataToOriginalServer() {
     question.ques_id = question.ques_id.replace("21days", "CPZEN");
 
     console.log(question)
-
+    console.log(`${process.env.COMPILER_API}/question/create`);
     const response2 = await axios.post(`${process.env.COMPILER_API}/question/create`, question, {
-      headers: {
+      header: {
         token: `${token}`,
         role: `${role}`,
         profile_pic: `${profilePic}`,
         username: `${username}`,
       },
     });
-
+    console.log("after question is mounted");
     if (response2.status !== 200) {
       throw new Error("Error in adding question");
     }
     console.log("pushed question to original server");
-    return json({ status: 200, message: "Question added successfully" });
+    console.log({ status: 200, message: "Question added successfully" });
+    return ({ status: 200, message: "Question added successfully" });
   } catch (err) {
     console.log("error in populateDataToOriginalServer\n",err.message);
-    return json({ status: 400, message: err.message });
+    return ({ status: 400, message: err.message });
   }
 }
 

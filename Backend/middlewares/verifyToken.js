@@ -31,14 +31,18 @@ const verifyGeneralUser = (req, res, next) => {
 };
 
 const verifyAdmin = (req, res, next) => {
+  console.log("entered to verifyAdmin\n");
   const token = req.header("token");
+  console.log(token);
   if (!token) return res.status(401).send({ error: "Token is Missing." });
   try {
     const verified = jwt.verify(token, process.env.JWT_SECRET_KEY);
     req.user = verified;
     if (verified.role == "admin" || verified.role == "super_admin") {
+      console.log("all ok\n\n\n");
       next();
     } else {
+      console.log("In verifyAdmin Error catch");
       res.status(401).send({
         error: "User is Unauthorized to perform this action, contact admins.",
       });
