@@ -63,11 +63,14 @@ router.post("/userDetails", async (req, resp) => {
       .findOne({ userName: userName })
       .exec();
     let scoreNow = currentData ? currentData.totalScore : 0;
-    const heatMap = currentData ? currentData.heatMap : "0".repeat(22);
+    let heatMap = currentData ? currentData.heatMap : "0".repeat(22);
     const codeForcesURL = userData[0].codeforcesURL;
 
     if (userData[0].questions_solved.includes(searchParameter)) {
-      heatMap[new Date().getDate() - 13] = "1";
+
+      const heatMapArray = heatMap.split('');
+      heatMapArray[new Date().getDate() - 13] = "1";
+      heatMap = heatMapArray.join('');
       scoreNow += 1;
     }
     const data = await leaderBoard

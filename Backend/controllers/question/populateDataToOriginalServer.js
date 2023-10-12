@@ -7,7 +7,7 @@ async function populateDataToOriginalServer()
     try 
     {
         //make an axios request to signIn
-        const response=await axios.post(process.env.LOGIN_URL,{
+        const response=await axios.post(`${process.env.COMPILER_API}/auth/login`,{
             loginId: process.env.LOGIN_ID,
             password:process.env.PASSWORD,
         });
@@ -48,12 +48,13 @@ async function populateDataToOriginalServer()
         {
             throw new Error("Error in adding question");
         }
+        console.log("pushed question to original server");
         return json({ status:200,message:"Question added successfully"})
         
     }
     catch (err) 
     {
-
+        console.log("error in populateDataToOriginalServer");
         return json({ status:400,message:err.message})
     }
 }
