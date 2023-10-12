@@ -19,6 +19,7 @@ router.get("/getQuestion", async (req, res) => {
         question.isToday = false;
       }
     });
+    console.log(questions);
     //{[name,ques_id,day,isToday]}
     if (isDataMounted[day] === false) {
       const resultMounted = await populateDataToOriginalServer();

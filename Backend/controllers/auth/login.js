@@ -3,8 +3,10 @@ const bcrypt = require("bcrypt");
 const { generateLoginToken } = require("../../utils/generateToken");
 
 async function loginController(req, res){
+  console.log("entered Login controller")
     try {
       const { loginId, password } = req.body;
+      console.log(loginId, password,"\nlogin req body");
       if (loginId) {
         if (password) {
           let user;
