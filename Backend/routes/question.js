@@ -88,7 +88,6 @@ router.get("/getQuesNo",verifyAdmin,async (req, res) => {
 });
 
 router.post("/create", verifyAdmin, async (req, res) => {
-  console.log("\n\n\n...........................................entered to create question");
   const {
     name,
     description,
@@ -226,7 +225,6 @@ router.post("/update", verifyAdmin, async (req, res) => {
     }
     res.status(200).json({ message: "Question created successfully" });
   } catch (error) {
-    console.log(error);
     res.status(500).json(error);
   }
 });

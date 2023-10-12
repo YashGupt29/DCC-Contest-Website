@@ -31,9 +31,9 @@ const verifyGeneralUser = (req, res, next) => {
 };
 
 const verifyAdmin = (req, res, next) => {
-  console.log("entered to verifyAdmin\n");
+  // console.log("entered to verifyAdmin\n");
   const token = req.header("token");
-  console.log(token);
+  // console.log(token);
   if (!token) return res.status(401).send({ error: "Token is Missing." });
   try {
     const verified = jwt.verify(token, process.env.JWT_SECRET_KEY);
