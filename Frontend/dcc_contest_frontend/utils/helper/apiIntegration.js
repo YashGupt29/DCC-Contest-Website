@@ -1,4 +1,5 @@
 import axios from "axios";
+import { func } from "prop-types";
 
 const base_url = "http://localhost:5000";
 export async function getQuestion() {
@@ -66,4 +67,13 @@ export function codeforcesName(url) {
   const parts = url.split("/");
   const username = parts.pop();
   return username;
+}
+export function progressBar(binaryString) {
+  let count = 0;
+  for (let i = 0; i < binaryString?.length; i++) {
+    if (binaryString[i] === "1") {
+      count++;
+    }
+  }
+  return count;
 }

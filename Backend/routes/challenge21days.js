@@ -6,6 +6,7 @@ const router = express.Router();
 const leaderBoard = require("../models/leaderBoard.js");
 const user = require("../models/user.js");
 const isDataMounted = new Array(22).fill(false);
+const queBank = require("../utils/queBank");
 
 router.get("/getQuestion", async (req, res) => {
   const requiredAttributes = ["name", "ques_id", "day"];
@@ -153,7 +154,9 @@ router.get("/leaderBoard", async (req, resp) => {
 router.post("/topicCodeForces", async (req, res) => {
   try {
     const username = req.body.username;
-    const queBank = req.body.queBank;
+    console.log(queBank);
+    console.log(username);
+    // const queBank = req.body.queBank;
     const today = new Date(); // Get the current date
     const startDate = new Date("2023-09-25"); // Start date for the challenge
     const curDay = Math.ceil((today - startDate) / (1000 * 60 * 60 * 24)); // Calculate the difference in days
@@ -186,7 +189,7 @@ router.post("/topicCodeForces", async (req, res) => {
       binaryString += problemSolved ? "1" : "0";
     }
     for (let i = curDay; i < 21; i++) binaryString += "0";
-
+    console.log({ binaryString, success: true });
     res.status(200).send({ binaryString, success: true });
   } catch (err) {
     console.log("Error: " + err);
