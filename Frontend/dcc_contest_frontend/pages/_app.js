@@ -32,6 +32,7 @@ import "../styles/Footer.css";
 import "../styles/ContestStats.css";
 
 import { Provider } from "react-redux";
+import MyContextProvider from "../Contexts/MyContexts";
 import store from "../store/baseStore";
 import Auth from "../components/Auth";
 import Head from "next/head";
@@ -77,11 +78,13 @@ export default function App({ Component, pageProps }) {
         <link rel="manifest" href="/manifest.json" />
       </Head>
       <Provider store={store}>
-        <Auth>
-          <div className="flex flex-col min-h-screen">
-            <Component {...pageProps} />
-          </div>
-        </Auth>
+        <MyContextProvider>
+          <Auth>
+            <div className="flex flex-col min-h-screen">
+              <Component {...pageProps} />
+            </div>
+          </Auth>
+        </MyContextProvider>
       </Provider>
     </>
   );
