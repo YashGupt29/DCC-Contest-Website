@@ -47,10 +47,11 @@ export async function getLeaderboardData() {
   }
 }
 export function streak(binaryString) {
+  console.log(binaryString);
   let maxStreak = 0;
   let currentStreak = 0;
 
-  for (let i = 0; i < binaryString.length; i++) {
+  for (let i = 0; i < binaryString?.length; i++) {
     if (binaryString[i] === "1") {
       currentStreak++;
       maxStreak = Math.max(maxStreak, currentStreak);

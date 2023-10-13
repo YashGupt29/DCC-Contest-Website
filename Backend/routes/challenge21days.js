@@ -23,7 +23,7 @@ router.get("/getQuestion", async (req, res) => {
     console.log(questions);
     //{[name,ques_id,day,isToday]}
     if (isDataMounted[day] === false) {
-      let dayToSearch = (new Date().getDate() - 13).toString();
+      let dayToSearch = (new Date().getDate() - 12).toString();
       if (dayToSearch.length === 1) {
         dayToSearch = "0" + dayToSearch;
       }
@@ -57,17 +57,16 @@ router.get("/getQuestion", async (req, res) => {
 router.post("/userDetails", async (req, resp) => {
   //req.body.username
   //req.body.name
-  const name = req.body.name;
   const username = req.body.username;
 
-  if (name == null || username == null) {
+  if (username == null) {
     resp.status(400).json({ message: "username or name not provided" });
     return;
   }
   try {
     console.log("hello hi");
     const userData = await user
-      .find({ username: username }, "codeforcesURL questions_solved")
+      .find({ username: username }, "codeforcesURL name questions_solved")
       .exec();
     if (userData.length === 0) {
       //user not found
@@ -83,6 +82,7 @@ router.post("/userDetails", async (req, resp) => {
     let scoreNow = currentData ? currentData.totalScore : 0;
     let heatMap = currentData ? currentData.heatMap : "0".repeat(22);
     const codeforcesURL = userData[0].codeforcesURL;
+    const name = userData[0].name;
 
     // console.log(currentData);
     if (userData[0].questions_solved.includes(searchParameter)) {
@@ -160,8 +160,7 @@ router.post("/topicCodeForces", async (req, res) => {
 
     const codeforcesUrl = `https://codeforces.com/api/user.status?handle=${username}&from=1&count=500`;
     const response = await fetch(codeforcesUrl, { method: "GET" });
-    const codeforcesURL = `https://codeforces.com/api/user.status?handle=${username}&from=1&count=500`;
-    const response = await fetch(codeforcesURL, { method: "GET" });
+
     const jsonObject = await response.json();
     const status = jsonObject.result;
 
