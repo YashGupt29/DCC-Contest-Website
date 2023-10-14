@@ -27,6 +27,7 @@ function ProblemSet() {
   const [binaryStringProblem, setBinaryStringProblem] = useState("");
   const [binaryStringTopic, setBinaryStringTopic] = useState("");
 
+
   useEffect(() => {
     async function fetchQuestions() {
       const url = `http://localhost:5000/21days/getQuestion`;
@@ -60,6 +61,7 @@ function ProblemSet() {
             setLoading(false);
 
             setBinaryStringProblem(data.headMap);
+
             setPoints(data.point);
             setUrl1(data.codeforcesURL);
           })
@@ -95,6 +97,7 @@ function ProblemSet() {
     getHotTopic();
   }, []);
   const progress = progressBar(binaryStringProblem);
+
 
   return (
     <>
@@ -213,6 +216,7 @@ function ProblemSet() {
                   problems={problems}
                   binaryStringProblem={binaryStringProblem}
                 />
+
 
                 <AlertError alert={alert} />
               </>

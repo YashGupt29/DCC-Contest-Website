@@ -33,6 +33,7 @@ export default function ProblemTable(props) {
             props.problems?.map((problem, index) => (
               <tr key={problem.day} className="hover cursor-pointer">
                 {props.binaryStringProblem[index] == "1" ? (
+
                   <th>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
