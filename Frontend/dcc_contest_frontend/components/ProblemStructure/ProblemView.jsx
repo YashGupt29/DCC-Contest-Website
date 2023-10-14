@@ -17,7 +17,7 @@ function getDay() {
 export default function ProblemTable(props) {
   const day = getDay();
   return (
-    <div>
+    <div className="mb-5">
       <table className="table w-full custom-table">
         <thead>
           <tr>
@@ -25,7 +25,7 @@ export default function ProblemTable(props) {
             <th className="pl-[120px]">Day</th>
 
             {props.tabActive !== "Problem" ? (
-              <th className="pr-[100px]">Name</th>
+              <th className="pr-[120px]">Name</th>
             ) : (
               <th>Topic</th>
             )}

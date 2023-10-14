@@ -20,7 +20,7 @@ export default function HotTopics(props) {
   };
 
   return (
-    <div>
+    <div className="mb-5">
       <table className="table w-full custom-table mx-auto">
         <thead>
           <tr>
