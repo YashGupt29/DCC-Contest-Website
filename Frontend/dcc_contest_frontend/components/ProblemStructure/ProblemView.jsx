@@ -7,12 +7,10 @@ import { useSelector } from "react-redux";
 import { progressBar } from "../../utils/helper/apiIntegration";
 
 function getDay() {
-  const startingDay = 10;
-  const today = new Date();
-  const dayNumber = today.getDate();
-  const day = dayNumber - startingDay;
-
-  return day;
+  const today = new Date(); // Get the current date
+  const startDate = new Date("2023-10-14"); // Start date for the challenge
+  const curDay = Math.ceil((today - startDate) / (1000 * 60 * 60 * 24)); // Calculate the difference in days
+  return curDay;
 }
 export default function ProblemTable(props) {
   const day = getDay();
