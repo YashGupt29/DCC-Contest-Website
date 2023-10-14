@@ -26,7 +26,6 @@ function ProblemSet() {
   const loginState = useSelector((state) => state.login);
   const [binaryStringProblem, setBinaryStringProblem] = useState("");
   const [binaryStringTopic, setBinaryStringTopic] = useState("");
-
   useEffect(() => {
     async function fetchQuestions() {
       const url = `http://localhost:5000/21days/getQuestion`;
@@ -81,6 +80,7 @@ function ProblemSet() {
       };
       if (!codeForcesNames.username) return;
       axios
+
         .post(`http://localhost:5000/21days/topicCodeForces`, codeForcesNames)
         .then(function (response) {
           const data = response.data;

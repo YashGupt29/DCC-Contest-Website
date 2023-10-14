@@ -2,12 +2,10 @@ import { useState, useEffect } from "react";
 import leaddata from "../../utils/fakeData/leaddata";
 import { streak } from "../../utils/helper/apiIntegration";
 import Spinner from "../Spinner/Spinner";
-
 export default function LeaderBoard() {
   const [leaderBoard, setLeaderBoard] = useState([]);
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     async function fetchQuestions() {
       const url = `http://localhost:5000/21days/leaderboard`;
