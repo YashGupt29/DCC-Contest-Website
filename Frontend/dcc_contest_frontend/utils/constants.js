@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export const AdminSideNavMap = {
   home: 1,
   dashboard: 2,
@@ -107,7 +109,7 @@ function getDay() {
   console.log(day);
   return day;
 }
-
-const day = getDay();
-
-export const EVENT_PAGE = `${day >= 20 ? "/events" : "/commingSoon"}`;
+const day = 10;
+export const EVENT_PAGE = `${
+  day <= 10 || day >= 20 ? "/events" : "/commingSoon"
+}`;
