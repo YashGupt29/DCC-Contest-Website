@@ -7,12 +7,13 @@ const leaderBoard = require("../models/leaderBoard.js");
 const user = require("../models/user.js");
 const isDataMounted = new Array(22).fill(false);
 const queBank = require("../utils/queBank");
+const calculateCurrDays = require("../utils/calculateCurrDays.js");
 
 router.get("/getQuestion", async (req, res) => {
   const requiredAttributes = ["name", "ques_id", "day"];
   try {
     const questions = await Question21.find().select(requiredAttributes).exec();
-    const day = new Date().getDate() - 12; //day is 1-indexed
+    const day = calculateCurrDays(); //day is 1-indexed
     questions.forEach((question) => {
       question.ques_id = question.ques_id.replace("21days", "CPZEN");
       if (question.day == day) {
@@ -24,7 +25,7 @@ router.get("/getQuestion", async (req, res) => {
     console.log(questions);
     //{[name,ques_id,day,isToday]}
     if (isDataMounted[day] === false) {
-      let dayToSearch = (new Date().getDate() - 12).toString();
+      let dayToSearch = calculateCurrDays().toString();
       if (dayToSearch.length === 1) {
         dayToSearch = "0" + dayToSearch;
       }
@@ -75,7 +76,12 @@ router.post("/userDetails", async (req, resp) => {
       return;
     }
 
-    const searchParameter = "CPZEN_" + (new Date().getDate() - 12).toString();
+    //update the search parameter
+    let currentDayCalculated = calculateCurrDays().toString();
+    if (currentDayCalculated.length === 1) {
+      currentDayCalculated = "0" + currentDayCalculated;
+    }
+    const searchParameter = "CPZEN_" + currentDayCalculated;
 
     const currentData = await leaderBoard
       .findOne({ username: username })
@@ -85,13 +91,18 @@ router.post("/userDetails", async (req, resp) => {
     const codeforcesURL = userData[0].codeforcesURL;
     const name = userData[0].name;
 
+    // console.log("\n\n\n",userData[0].questions_solved);
     // console.log(currentData);
-    if (userData[0].questions_solved.includes(searchParameter)) {
+    if (
+      heatMap[calculateCurrDays()] == "0" &&
+      userData[0].questions_solved.includes(searchParameter)
+    ) {
       const heatMapArray = heatMap.split("");
-      heatMapArray[new Date().getDate() - 12] = "1";
+      heatMapArray[calculateCurrDays()] = "1";
       heatMap = heatMapArray.join("");
       scoreNow += 1;
     }
+    // console.log(heatMap);
     // console.log(userData);
     const data = await leaderBoard
       .updateOne(
@@ -158,12 +169,11 @@ router.post("/topicCodeForces", async (req, res) => {
     console.log(username);
     // const queBank = req.body.queBank;
     const today = new Date(); // Get the current date
-    const startDate = new Date("2023-09-25"); // Start date for the challenge
+    const startDate = new Date("2023-10-14"); // Start date for the challenge
     const curDay = Math.ceil((today - startDate) / (1000 * 60 * 60 * 24)); // Calculate the difference in days
 
     const codeforcesUrl = `https://codeforces.com/api/user.status?handle=${username}&from=1&count=500`;
     const response = await fetch(codeforcesUrl, { method: "GET" });
-
     const jsonObject = await response.json();
     const status = jsonObject.result;
 
@@ -189,7 +199,11 @@ router.post("/topicCodeForces", async (req, res) => {
       binaryString += problemSolved ? "1" : "0";
     }
     for (let i = curDay; i < 21; i++) binaryString += "0";
-    console.log({ binaryString, success: true });
+    console.log(
+      "\n\n\n\n hellolo- ",
+      { binaryString, success: true },
+      "\n\n\n"
+    );
     res.status(200).send({ binaryString, success: true });
   } catch (err) {
     console.log("Error: " + err);

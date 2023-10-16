@@ -25,11 +25,10 @@ function ProblemSet() {
   const [url1, setUrl1] = useState("");
   const loginState = useSelector((state) => state.login);
   const [binaryStringProblem, setBinaryStringProblem] = useState("");
-  const [binaryStringTopic, setBinaryStringTopic] = useState("");
-
+  const [binaryStringTopic, setBinaryStringTopic] = useState("0".repeat(22));
   useEffect(() => {
     async function fetchQuestions() {
-      const url = `http://localhost:5000/21days/getQuestion`;
+      const url = `${BASE_URL}/21days/getQuestion`;
       try {
         const res = await fetch(url);
         const data = await res.json();
@@ -55,7 +54,7 @@ function ProblemSet() {
         };
 
         axios
-          .post(`http://localhost:5000/21days/userDetails`, requestData)
+          .post(`${BASE_URL}/21days/userDetails`, requestData)
           .then(function (response) {
             const { data } = response.data; // Add heatMap here if you need it.
             console.log(data);
@@ -79,9 +78,13 @@ function ProblemSet() {
       const codeForcesNames = {
         username: codeforcesName(url1),
       };
-      if (!codeForcesNames.username) return;
+      // console.log("codeForcesNames.username : ", codeForcesNames.username);
+      if (!codeForcesNames.username) {
+        // console.log("codeForcesNames.username : ", codeForcesNames.username);
+        return;
+      }
       axios
-        .post(`http://localhost:5000/21days/topicCodeForces`, codeForcesNames)
+        .post(`${BASE_URL}/21days/topicCodeForces`, codeForcesNames)
         .then(function (response) {
           const data = response.data;
           console.log(data.binaryString);
@@ -97,7 +100,7 @@ function ProblemSet() {
         });
     }
     getHotTopic();
-  }, []);
+  }, [url1]);
   const progress = progressBar(binaryStringProblem);
 
   return (

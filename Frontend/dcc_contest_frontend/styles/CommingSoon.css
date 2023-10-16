@@ -1,0 +1,121 @@
+.rainbow-text {
+  background: linear-gradient(
+    to right,
+    violet,
+    indigo,
+    blue,
+    green,
+    yellow,
+    orange,
+    red
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: rainbow 0.5s linear infinite;
+}
+
+/* ComingSoon.css */
+
+/* Define a dynamic and colorful rainbow animation */
+@keyframes rainbow {
+  0% {
+    background: linear-gradient(
+      to right,
+      violet,
+      indigo,
+      blue,
+      green,
+      yellow,
+      orange,
+      red
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+  20% {
+    background: linear-gradient(
+      to right,
+      violet,
+      indigo,
+      blue,
+      green,
+      yellow,
+      orange,
+      red
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+  40% {
+    background: linear-gradient(
+      to right,
+      red,
+      violet,
+      indigo,
+      blue,
+      green,
+      yellow,
+      orange
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+  60% {
+    background: linear-gradient(
+      to right,
+      orange,
+      red,
+      violet,
+      indigo,
+      blue,
+      green,
+      yellow
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+  80% {
+    background: linear-gradient(
+      to right,
+      yellow,
+      orange,
+      red,
+      violet,
+      indigo,
+      blue,
+      green
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+  100% {
+    background: linear-gradient(
+      to right,
+      green,
+      yellow,
+      orange,
+      red,
+      violet,
+      indigo,
+      blue
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+}
+
+/* Apply the rainbow animation on hover with ease-in-out timing function */
+.hover\:rainbow-text:hover {
+  animation: rainbow 0.5s ease-in-out infinite; /* 90 FPS (1 / 90) */
+  background: none;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}

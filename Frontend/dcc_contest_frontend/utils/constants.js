@@ -81,7 +81,6 @@ export const PROBLEM_SET_PAGE = "/problemset";
 export const CONTEST_PAGE = "/contest";
 export const INTERVIEW_PREP_PAGE = "/interviewPrep";
 export const ABOUT_PAGE = "/about";
-export const EVENT_PAGE = "/events";
 
 export const SETTINGS_PAGE = "/settings";
 
@@ -102,3 +101,13 @@ export const BAN_USERS = "/superAdmin/banusers";
 
 export const IMAGEKIT_PUBLIC_KEY = "public_bkNkzRpT9kFSd7Flmfy8NYvGr6s=";
 export const IMAGEKIT_URL = "https://ik.imagekit.io/vkp8vbrb4/";
+function getDay() {
+  const today = new Date();
+  const day = today.getDate();
+  console.log(day);
+  return day;
+}
+
+const day = getDay();
+
+export const EVENT_PAGE = `${day >= 20 ? "/events" : "/commingSoon"}`;

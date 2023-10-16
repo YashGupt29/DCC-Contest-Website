@@ -27,7 +27,7 @@ import BackdropLoader from "./BackdropLoader";
 function getPath(role, username) {
   return role === ADMIN || role === SUPER_ADMIN
     ? ADMIN_DASHBOARD
-    : `/${username}`;
+    : `profile/${username}`;
 }
 
 function Navbar() {
@@ -105,6 +105,9 @@ function Navbar() {
         </li>
         <li>
           <Link href={PROBLEM_SET_PAGE}>Problem Set</Link>
+        </li>
+        <li>
+          <Link href={EVENT_PAGE}>21DaysCode</Link>
         </li>
         <li>
           <Link href={INTERVIEW_PREP_PAGE}>Interview Prep</Link>

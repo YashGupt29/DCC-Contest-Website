@@ -30,7 +30,7 @@ import "../styles/SignUp.css";
 import "../styles/Accounts.css";
 import "../styles/Footer.css";
 import "../styles/ContestStats.css";
-
+import "../styles/CommingSoon.css";
 import { Provider } from "react-redux";
 import store from "../store/baseStore";
 import Auth from "../components/Auth";
